@@ -1,0 +1,101 @@
+import streamlit as st
+from PIL import Image
+import io
+import time
+import numpy as np
+
+# Define paths and project info (to be updated later)
+MODEL_PATH = "path/to/your/trained/model.pth"  # Update with the actual model path
+CLASS_NAMES = ['Glass', 'Metal', 'Mixed', 'Plastic', 'Wood']  # Final class names
+
+# ----------------------------------------------------
+# 1. Layout Configuration
+# ----------------------------------------------------
+
+st.set_page_config(
+    page_title="Raw Material Classification",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Main Title
+st.title("💡 Intelligent Raw Material Classification System")
+st.markdown("---")
+
+
+# ----------------------------------------------------
+# 2. Image Upload & Display
+# ----------------------------------------------------
+
+# Create two columns (upload and result display)
+col1, col2 = st.columns([1, 1.5])
+
+with col1:
+    st.header("🖼️ Upload Material Image")
+    
+    # Requirement: supporting image upload
+    uploaded_file = st.file_uploader(
+        "Select a raw material image:", 
+        type=["jpg", "jpeg", "png"]
+    )
+
+    # Predict button (disabled for now)
+    predict_button = st.button("Predict Classification", disabled=True, type="primary")
+
+with col2:
+    st.header("✨ Predicted Result")
+    
+    # Placeholder for result display
+    prediction_placeholder = st.empty()
+    
+    if uploaded_file is not None:
+        # Loading spinner to simulate processing
+        with st.spinner("Processing image..."):
+            
+            # Read image with PIL
+            image = Image.open(uploaded_file)
+            
+            # Display the uploaded image
+            prediction_placeholder.image(
+                image, 
+                caption=f"Uploaded image: {uploaded_file.name}", 
+                use_column_width=True
+            )
+            
+            st.success("Image uploaded successfully.")
+
+            # Enable prediction button after upload
+            predict_button = st.button("Predict Classification", disabled=False, type="primary")
+
+            if predict_button:
+                # --------------------------------------------------------------
+                # Model loading and prediction logic will be added here later
+                # --------------------------------------------------------------
+                
+                # Temporary message confirming button functionality
+                prediction_placeholder.markdown(
+                    "<h3 style='color: orange;'>🚨 Model is not ready yet!</h3>",
+                    unsafe_allow_html=True
+                )
+                
+                # Example placeholder for future predicted output
+                # prediction_placeholder.metric(label="Predicted Class", value="Wood", delta="98.5% Confidence")
+    
+    else:
+        prediction_placeholder.info("Please upload an image to start classification.")
+
+# ----------------------------------------------------
+# 3. Run Instructions
+# ----------------------------------------------------
+
+st.sidebar.title("Run Instructions")
+st.sidebar.markdown(
+    """
+    **1. Save the code:** Save this script as `app.py`.  
+    **2. Install dependencies:**  
+    `pip install streamlit Pillow`  
+    **3. Run the app:**  
+    `streamlit run app.py`  
+    **4. Integration:** Once you get the trained model, we will add a `predict()` function to activate the prediction button.
+    """
+)
