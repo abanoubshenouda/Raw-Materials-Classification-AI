@@ -1,16 +1,25 @@
 **1.Upload Dataset**
 
+# Install Kaggle API
 !pip install -q kaggle
 
+# Install unzip tool
 !apt-get -qq install -y unzip
 
+# Create Kaggle directory
 !mkdir -p ~/.kaggle
 
+# Move kaggle.json credentials file into the Kaggle directory
 !cp kaggle.json ~/.kaggle/
 
+# Set correct permissions for kaggle.json
 !chmod 600 ~/.kaggle/kaggle.json
 
+# Download the dataset from Kaggle using its dataset identifier
 !kaggle datasets download -d haaroonafroz/material-dataset-new
 
+# Extract the downloaded ZIP file into the dataset_raw folder
 !unzip -q material-dataset-new.zip -d dataset_raw
+
+
 
