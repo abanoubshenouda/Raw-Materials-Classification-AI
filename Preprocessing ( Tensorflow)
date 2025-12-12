@@ -1,0 +1,16 @@
+**1.Upload Dataset**
+
+!pip install -q kaggle
+
+!apt-get -qq install -y unzip
+
+!mkdir -p ~/.kaggle
+
+!cp kaggle.json ~/.kaggle/
+
+!chmod 600 ~/.kaggle/kaggle.json
+
+!kaggle datasets download -d haaroonafroz/material-dataset-new
+
+!unzip -q material-dataset-new.zip -d dataset_raw
+
