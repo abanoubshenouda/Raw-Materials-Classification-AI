@@ -27,7 +27,6 @@
 
 
 
-
 **2. Import Libraries**
 
 # Importing essential libraries
@@ -45,3 +44,24 @@ import random                     # For reproducibility and random operations
 print("TensorFlow version:", tf._version_)
 print("GPU Available:", tf.config.list_physical_devices('GPU'))
 
+
+
+
+
+**3.Explore Dataset Structure**
+
+# Set dataset path
+dataset_path = 'dataset_raw'
+
+# Explore directory structure
+for root, dirs, files in os.walk(dataset_path):
+    level = root.replace(dataset_path, '').count(os.sep)
+    indent = ' ' * 2 * level
+    print(f'{indent}{os.path.basename(root)}/')
+
+    # Only show first 3 files per directory
+    subindent = ' ' * 2 * (level + 1)
+    for file in files[:3]:
+        print(f'{subindent}{file}')
+    if len(files) > 3:
+        print(f'{subindent}... and {len(files) - 3} more files')
